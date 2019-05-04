@@ -19,7 +19,7 @@ public class DailyNewsModel extends BaseModel {
 
     public void getData(final CallBack<DailyNewsBean> callBack) {
         HttpService httpService = HttpUtils.getInstance().getApiserver(HttpService.dailyNewsUrl, HttpService.class);
-        httpService.getDailyNewsData().compose(RxUtils.<DailyNewsBean>rxObserableSchedulerHelper())
+        httpService.getDailyNewsData().compose(RxUtils.<DailyNewsBean>rxObservableSchedulerHelper())
                 .subscribe(new Observer<DailyNewsBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -78,7 +78,7 @@ public class DailyNewsModel extends BaseModel {
     public void getBeforeData(final CallBack<DailyNewsBean> callBack,String date) {
         int i = Integer.parseInt(date);
         HttpService httpService = HttpUtils.getInstance().getApiserver(HttpService.dailyNewsUrl, HttpService.class);
-        httpService.getBeforeDailyNewsData(i+1).compose(RxUtils.<DailyNewsBean>rxObserableSchedulerHelper())
+        httpService.getBeforeDailyNewsData(i+1).compose(RxUtils.<DailyNewsBean>rxObservableSchedulerHelper())
                 .subscribe(new Observer<DailyNewsBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {

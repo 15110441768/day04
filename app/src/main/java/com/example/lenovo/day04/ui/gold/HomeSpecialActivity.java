@@ -45,11 +45,16 @@ public class HomeSpecialActivity extends BaseActivity<HomeSpecialView, HomeSpeci
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("首页特别展示");
+
         goldTitleBeans = (ArrayList<GoldTitleBean>) getIntent().getSerializableExtra(Constants.DATA);
         recyclerview.setLayoutManager(new LinearLayoutManager(HomeSpecialActivity.this));
         homeSpecialRecyclerViewAdapter = new HomeSpecialRecyclerViewAdapter(goldTitleBeans, HomeSpecialActivity.this);
         recyclerview.setAdapter(homeSpecialRecyclerViewAdapter);
 
+        /**
+         * homeSpecialRecyclerViewAdapter  RecyclerView 的适配器
+         * recyclerview                    RecyclerView 控件
+         */
         //拖拽移动和左滑删除
         SimpleItemTouchCallBack simpleItemTouchCallBack = new SimpleItemTouchCallBack(homeSpecialRecyclerViewAdapter);
         simpleItemTouchCallBack.setmSwipeEnable(false);

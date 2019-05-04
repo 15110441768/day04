@@ -53,6 +53,9 @@ public class HomeSpecialRecyclerViewAdapter extends RecyclerView.Adapter<HomeSpe
         return goldTitleBeans.size();
     }
 
+    /**
+     * goldTitleBeans 适配器里的数据集合
+     */
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
         //交换集合中两个数据的位置

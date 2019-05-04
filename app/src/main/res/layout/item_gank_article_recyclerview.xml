@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@mipmap/ic_android"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/iv"
+                android:text="desc"
+                android:layout_marginTop="10dp"/>
+
+            <ImageView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_author"
+                android:layout_below="@id/iv"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/who"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="who"
+                android:layout_toRightOf="@id/author"
+                android:layout_alignBottom="@id/author"/>
+
+            <TextView
+                android:id="@+id/publishedAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="publishedAt"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@id/who"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_time"
+                android:layout_toLeftOf="@id/publishedAt"
+                android:layout_alignBottom="@id/publishedAt"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

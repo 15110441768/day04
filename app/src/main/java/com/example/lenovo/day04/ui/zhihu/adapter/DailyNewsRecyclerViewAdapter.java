@@ -77,9 +77,18 @@ public class DailyNewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             if (topStoriesBeans.size()>0){
                 newPosition=i-1-1;
             }
-            DailyNewsBean.StoriesBean storiesBean = storiesBeans.get(newPosition);
+            final DailyNewsBean.StoriesBean storiesBean = storiesBeans.get(newPosition);
             newsVH.title.setText(storiesBean.getTitle());
             Glide.with(context).load(storiesBean.getImages().get(0)).into(newsVH.images);
+
+            newsVH.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (sendDataToFragment!=null){
+                        sendDataToFragment.sendData(storiesBean);
+                    }
+                }
+            });
         }
     }
 
@@ -157,5 +166,15 @@ public class DailyNewsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             images = itemView.findViewById(R.id.images);
             title = itemView.findViewById(R.id.title);
         }
+    }
+
+    SendDataToFragment sendDataToFragment;
+
+    public void setSendDataToFragment(SendDataToFragment sendDataToFragment) {
+        this.sendDataToFragment = sendDataToFragment;
+    }
+
+    public interface SendDataToFragment{
+        void sendData(DailyNewsBean.StoriesBean storiesBean);
     }
 }

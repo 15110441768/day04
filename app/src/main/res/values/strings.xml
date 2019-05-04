@@ -24,4 +24,11 @@
     <string name="product">产品</string>
     <string name="read">阅读</string>
     <string name="resources">工具资源</string>
+
+    <string name="detail_bottom_share">分享</string>
+
+    <string name="detail_bottom_like">点赞</string>
+
+    <string name="detail_bottom_commit">评论</string>
+    <string name="night_mode">夜间模式</string>
 </resources>

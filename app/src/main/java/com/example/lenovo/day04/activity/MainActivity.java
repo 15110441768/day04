@@ -5,6 +5,7 @@ package com.example.lenovo.day04.activity;
  */
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,7 +14,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +24,7 @@ import android.widget.FrameLayout;
 
 import com.example.lenovo.day04.R;
 import com.example.lenovo.day04.base.BaseActivity;
+import com.example.lenovo.day04.base.Constants;
 import com.example.lenovo.day04.presenter.MainPresenter;
 import com.example.lenovo.day04.ui.gank.GankFragment;
 import com.example.lenovo.day04.ui.gold.GoldFragment;
@@ -30,6 +34,7 @@ import com.example.lenovo.day04.ui.main.SettingsFragment;
 import com.example.lenovo.day04.ui.v2ex.V2exFragment;
 import com.example.lenovo.day04.ui.wechat.WeChatFragment;
 import com.example.lenovo.day04.ui.zhihu.ZhiHuDailyFragment;
+import com.example.lenovo.day04.util.SpUtil;
 import com.example.lenovo.day04.util.ToastUtil;
 import com.example.lenovo.day04.view.MainView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -40,6 +45,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity<MainView, MainPresenter> implements MainView {
+
+    private static final String TAG = "MainActivity";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -61,7 +68,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     private final int TYPE_GOLD = 3;
     private final int TYPE_GANK = 4;
     private final int TYPE_COLLECT = 5;
-    private final int TYPE_SETTINGS = 6;
+    public static final int TYPE_SETTINGS = 6;
     private final int TYPE_ABOUT = 7;
 
     private int lastFragmentPosition = 0;
@@ -96,10 +103,12 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     }
 
     private void addZhiHuDailyFragment() {
+        //根据保存的碎片位置显示对应碎片
+        int type = (int) SpUtil.getParam(Constants.NIGHT_CURRENT_FRAG_POS, TYPE_ZHIHU);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.frame, fragments.get(0));
+        transaction.add(R.id.frame, fragments.get(type));
         transaction.commit();
-        toolbar.setTitle(titles.get(0));
+        toolbar.setTitle(titles.get(type));
         nv.setCheckedItem(R.id.zhihu);
     }
 
@@ -213,9 +222,9 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         lastFragmentPosition = type;
 
         //显示隐藏搜索框
-        if (type == TYPE_WECHAT|| type== TYPE_GANK){
+        if (type == TYPE_WECHAT || type == TYPE_GANK) {
             mSearchItem.setVisible(true);
-        }else {
+        } else {
             mSearchItem.setVisible(false);
         }
     }
@@ -225,14 +234,15 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, dl, toolbar, R.string.app_name, R.string.app_name);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
+        //设置旋转开关颜色
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.c_ffffff));
         dl.addDrawerListener(toggle);
         toggle.syncState();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.options_menu,menu);
+        getMenuInflater().inflate(R.menu.options_menu, menu);
         mSearchItem = menu.findItem(R.id.action_search);
         mSearchItem.setVisible(false);
         searchView.setMenuItem(mSearchItem);
@@ -247,7 +257,29 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         if (searchView.isSearchOpen()) {
             searchView.closeSearch();
         } else {
-            super.onBackPressed();
+//            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                    .setMessage("是否退出应用")
+                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SpUtil.setParam(Constants.NIGHT_CURRENT_FRAG_POS, TYPE_ZHIHU);
+                            finish();
+                        }
+                    }).setNegativeButton("否", null)
+                    .show();
+
+            SpUtil.setParam(Constants.NIGHT_CURRENT_FRAG_POS, TYPE_ZHIHU);
         }
+
+
+        Log.e(TAG, "onBackPressed: ");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "onDestroy: ");
     }
 }

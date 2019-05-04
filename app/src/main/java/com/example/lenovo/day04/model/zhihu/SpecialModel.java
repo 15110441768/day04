@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable;
 public class SpecialModel extends BaseModel {
     public void getData(final CallBack<SpecialBean> callBack) {
         HttpService httpService = HttpUtils.getInstance().getApiserver(HttpService.dailyNewsUrl, HttpService.class);
-        httpService.getSpecialData().compose(RxUtils.<SpecialBean>rxObserableSchedulerHelper())
+        httpService.getSpecialData().compose(RxUtils.<SpecialBean>rxObservableSchedulerHelper())
                 .subscribe(new Observer<SpecialBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {

@@ -17,6 +17,7 @@ import com.example.lenovo.day04.base.BaseFragment;
 import com.example.lenovo.day04.base.Constants;
 import com.example.lenovo.day04.presenter.zhihu.DailyNewsPresenter;
 import com.example.lenovo.day04.ui.zhihu.CalendarActivity;
+import com.example.lenovo.day04.ui.zhihu.activity.DailyNewsArticleActivity;
 import com.example.lenovo.day04.ui.zhihu.adapter.DailyNewsRecyclerViewAdapter;
 import com.example.lenovo.day04.ui.zhihu.bean.DailyNewsBean;
 import com.example.lenovo.day04.view.zhihu.DailyNewsView;
@@ -73,6 +74,14 @@ public class DailyNewsFragment extends BaseFragment<DailyNewsView, DailyNewsPres
         dailyNewsRecyclerViewAdapter = new DailyNewsRecyclerViewAdapter(storiesBeans, topStoriesBeans, getActivity());
         recyclerview.setAdapter(dailyNewsRecyclerViewAdapter);
 
+        dailyNewsRecyclerViewAdapter.setSendDataToFragment(new DailyNewsRecyclerViewAdapter.SendDataToFragment() {
+            @Override
+            public void sendData(DailyNewsBean.StoriesBean storiesBean) {
+                Intent intent = new Intent(getActivity(), DailyNewsArticleActivity.class);
+                intent.putExtra("id",storiesBean.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

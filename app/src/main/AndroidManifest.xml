@@ -25,7 +25,9 @@
         <activity android:name=".ui.zhihu.SpecialDetailsActivity" />
         <activity android:name=".ui.gold.HomeSpecialActivity" />
         <activity android:name=".ui.zhihu.CalendarActivity" />
-        <activity android:name=".ui.v2ex.activity.FadeActivity"></activity>
+        <activity android:name=".ui.v2ex.activity.FadeActivity" />
+        <activity android:name=".ui.zhihu.activity.DailyNewsArticleActivity"
+            android:theme="@style/NoAppTheme"></activity>
     </application>
 
 </manifest>
